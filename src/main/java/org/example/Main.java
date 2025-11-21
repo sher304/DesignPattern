@@ -2,13 +2,30 @@ package org.example;
 
 import org.example.Adapter.EmployeeAdapter;
 import org.example.Adapter.ITarget;
+import org.example.Factory.DataAnalyticsEngine;
+import org.example.Factory.DatabaseFactory;
+import org.example.Factory.DatabaseType;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        try {
+            dbEngines();
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         employeesAdapterDemo();
     }
+
+    public static void dbEngines() {
+        var sqlEngine = new DataAnalyticsEngine(DatabaseFactory.createDatabase(DatabaseType.SqlServer));
+        sqlEngine.processData("Query to process data for SQL Server");
+
+        var oracleEngine = new DataAnalyticsEngine(DatabaseFactory.createDatabase(DatabaseType.Oracle));
+        oracleEngine.processData("Query to process data for Oracle");
+    };
 
     public static void employeesAdapterDemo() {
         String[][] employeesArray = {
