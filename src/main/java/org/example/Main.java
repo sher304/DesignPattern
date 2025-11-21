@@ -5,18 +5,31 @@ import org.example.Adapter.ITarget;
 import org.example.Factory.DataAnalyticsEngine;
 import org.example.Factory.DatabaseFactory;
 import org.example.Factory.DatabaseType;
+import org.example.Observer.ConcreteObserver;
+import org.example.Observer.Subject;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         try {
-            dbEngines();
+            // MARK: Factory
+//            dbEngines();
+//            Thread.sleep(2000);
+//            System.out.println();
+//
+//            // MARK: ADAPTER
+//            employeesAdapterDemo();
+//            Thread.sleep(2000);
+//            System.out.println();
+
+            // MARK: OBSERVER
+            observingThings();
             Thread.sleep(2000);
+            System.out.println();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        employeesAdapterDemo();
     }
 
     public static void dbEngines() {
@@ -46,4 +59,30 @@ public class Main {
         ITarget target = new EmployeeAdapter();
         target.processCompanySalary(employeesArray);
     }
+
+    static void observingThings() throws InterruptedException {
+        Subject RedMI = new Subject("Red MI Mobile", 10000, "Out Of Stock");
+
+        ConcreteObserver user1 = new ConcreteObserver("Anurag");
+        user1.addSubscriber(RedMI);
+
+        ConcreteObserver user2 = new ConcreteObserver("Pranaya");
+        user2.addSubscriber(RedMI);
+
+        ConcreteObserver user3 = new ConcreteObserver("Priyanka");
+        user3.addSubscriber(RedMI);
+
+        Thread.sleep(1000);
+
+        System.out.println("Red MI Mobile current state : " + RedMI.getAvailability());
+        System.out.println();
+
+        Thread.sleep(1000);
+
+        user3.removeSubscriber(RedMI);
+
+        Thread.sleep(1000);
+        RedMI.setAvailability("Available");
+    }
+
 }

@@ -1,9 +1,9 @@
 package org.example.Observer;
 
 public interface ISubject {
-    void RegisterObserver(IObserver observer);
+    void registerObserver(IObserver observer);
 
-    void RemoveObserver(IObserver observer);
+    void removeObserver(IObserver observer);
 
-    void NotifyObservers();
+    void notifyObservers();
 }

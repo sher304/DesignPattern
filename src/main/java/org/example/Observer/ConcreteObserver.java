@@ -1,7 +1,8 @@
 package org.example.Observer;
 
-public class ConcreteObserver {
+public class ConcreteObserver implements IObserver {
     private String userName;
+
     public ConcreteObserver(String userName) {
         this.userName = userName;
         // Your code goes here... make sure to add this features:
@@ -19,4 +20,18 @@ public class ConcreteObserver {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public void addSubscriber(ISubject subject) {
+        subject.registerObserver(this);
+    }
+
+    public void removeSubscriber(ISubject subject) {
+        subject.removeObserver(this);
+    }
+
+    @Override
+    public void update(String availability) {
+        System.out.println("The: " + userName + " has updated: " + availability);
+    }
 }
+
